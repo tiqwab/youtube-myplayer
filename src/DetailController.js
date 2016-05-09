@@ -2,10 +2,6 @@ import React from 'react';
 import MusicList from './MusicList';
 import MusicForm from './MusicForm';
 
-/*
- * State: playlist, playing, selecting
- */
-
 class DetailController extends React.Component {
   render() {
     return (
