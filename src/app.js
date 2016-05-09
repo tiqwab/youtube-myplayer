@@ -1,4 +1,7 @@
 import youtubePlayer from 'youtube-player';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import DetailController from './DetailController';
 
 const PlayerState = {
   ENDED: 0,
@@ -8,25 +11,37 @@ const PlayerState = {
   CUED: 5,
 };
 
-const player = youtubePlayer('player', {
-  height: '390',
-  width: '640',
-});
-
 const playlist = [
-  { videoId: 'hv7LLHjKACg', volume: 100 },
-  { videoId: 'mc_cJXimj5Y', volume: 75 },
-  { videoId: '5mzsD2rfR94', volume: 30 },
+  { id: 1, videoId: 'hv7LLHjKACg', title: 'Music 1', volume: 100 },
+  { id: 2, videoId: 'mc_cJXimj5Y', title: 'Music 2', volume: 75 },
+  { id: 3, videoId: '5mzsD2rfR94', title: 'Music 3', volume: 30 },
 ];
 
 let playIndex = 0;
+let selectingId = 3;
+
+ReactDOM.render(
+  <DetailController
+    playlist={playlist}
+    playing={playlist[playIndex].id}
+    selecting={selectingId}
+  />,
+  document.getElementById('detail-controller')
+);
+
+
+const playerTag = document.getElementById('player');
+
+const player = youtubePlayer('player', {
+  height: playerTag.dataset.height,
+  width: playerTag.dataset.width,
+});
+
 player.on('stateChange', (event) => {
   if (event.data === PlayerState.ENDED) {
     player.getVolume()
           .then(volume => {
-            console.log(volume);
             if (volume !== playlist[playIndex].volume) {
-              console.log('change volume');
               playlist[playIndex].volume = volume;
             }
             return Promise.resolve(player);

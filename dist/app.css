@@ -1,0 +1,121 @@
+body {
+  font-family: avenir next;
+  font-size: 14px;
+  color: #4A4A4A;
+  line-height: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+#wrapper {
+  width: 1024px;
+  margin: 32px auto;
+}
+
+#header {
+  margin-bottom: 32px;
+}
+
+#detail-player {
+  float: left;
+}
+
+#detail-controller {
+  width: 470px;
+  float: right;
+}
+
+#music-list {
+  margin-bottom: 23px;
+}
+
+.scroll-list {
+  width: 426px;
+  height: 188px;
+  padding: 10px 14px;
+  padding-left: 28px;
+  overflow-y: scroll;
+  border: 1px solid #979797;
+}
+
+.scroll-item {
+  list-style: decimal;
+  line-height: 20px;
+  border-bottom: 1px solid #979797;
+  margin-bottom: 15px;
+}
+
+.scroll-item-selected label:after {
+  content: ' ♪'
+}
+
+.scroll-item input[type="radio"] {
+  display: none;
+}
+
+.scroll-item input[type="radio"] + label {
+  cursor: pointer;
+}
+
+.scroll-item input[type="radio"]:checked + label {
+  background: rgba(195,212,232,0.50);
+}
+
+.form-text {
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
+  border-radius: 3px;
+  width: 300px;
+  height: 36px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  color: #4A4A4A;
+  line-height: 20px;
+}
+
+#music-form-input {
+  margin-bottom: 12px;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid #979797;
+  border-radius: 8px;
+  font-family: AvenirNext-Bold;
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 37px;
+  text-align: center;
+  width: 102px;
+  height: 37px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+#btn-add {
+  background: #4A90E2;
+}
+
+#btn-add:active {
+  color: #DDDDDD;
+  background: #1271DF;
+}
+
+#btn-delete {
+  background: #C94757
+}
+
+#btn-delete:active {
+  color: #DDDDDD;
+  background: #CA2337
+}
+
+#footer {
+  clear: both;
+}
