@@ -7,14 +7,25 @@ class MusicForm extends React.Component {
   render() {
     return (
       <div id="music-form">
-        <MusicFormInput />
+        <MusicFormInput
+          inputText={this.props.inputText}
+          onChangeInputText={this.props.onChangeInputText}
+          onAddNewItem={this.props.onAddNewItem}
+        />
         <div id="music-form-btn">
-          <MusicFormAddBtn />
-          <MusicFormDeleteBtn />
+          <MusicFormAddBtn onAddNewItem={this.props.onAddNewItem} />
+          <MusicFormDeleteBtn onDeleteItem={this.props.onDeleteItem} />
         </div>
       </div>
     );
   }
 }
+
+MusicForm.propTypes = {
+  inputText: React.PropTypes.string,
+  onChangeInputText: React.PropTypes.func,
+  onAddNewItem: React.PropTypes.func,
+  onDeleteItem: React.PropTypes.func,
+};
 
 export default MusicForm;

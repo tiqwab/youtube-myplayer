@@ -17,8 +17,15 @@ class MusicItem extends React.Component {
           value={this.props.children}
           id={this.props.idName}
           checked={this.props.isChecked}
+          onClick={this.props.onClickItem}
         />
         <label htmlFor={this.props.idName}>{this.props.children}</label>
+        <img
+          src="btn-play.png"
+          alt="play button"
+          className="btn-play"
+          onClick={this.props.onClickPlay}
+        />
       </li>
     );
   }
@@ -29,6 +36,8 @@ MusicItem.propTypes = {
   idName: React.PropTypes.string,
   isPlaying: React.PropTypes.bool,
   isChecked: React.PropTypes.bool,
+  onClickItem: React.PropTypes.func,
+  onClickPlay: React.PropTypes.func,
 };
 
 export default MusicItem;

@@ -2,6 +2,7 @@ import React from 'react';
 import youtubePlayer from 'youtube-player';
 
 const PlayerState = {
+  NOTSTART: -1,
   ENDED: 0,
   PLAYING: 1,
   PAUSED: 2,
@@ -10,39 +11,61 @@ const PlayerState = {
 };
 
 class DetailPlayer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.prepared = false;
+    this.player = null;
+  }
+
   componentWillMount() {
     const playerTag = document.getElementById('detail-player');
 
-    const player = youtubePlayer('detail-player', {
+    this.player = youtubePlayer('detail-player', {
       height: playerTag.dataset.height,
       width: playerTag.dataset.width,
     });
 
-    const playlist = this.props.playlist;
-    const playing = this.props.playing;
-    const playingMusic = playlist[playing];
+    this.player.on('stateChange', (event) => {
+      const playlist = this.props.playlist;
+      const playing = this.props.playing;
+      const playingMusic = playlist.find((x) => x.id === playing);
 
-    player.on('stateChange', (event) => {
       if (event.data === PlayerState.ENDED) {
-        player.getVolume()
+        this.player.getVolume()
               .then(volume => {
                 if (volume !== playingMusic.volume) {
                   playingMusic.volume = volume;
                 }
-                return Promise.resolve(player);
+                return Promise.resolve(this.player);
               })
-              .then(p => {
+              .then(() => {
                 const playIndex = playlist.findIndex((x) => x.id === playing);
                 const nextPlayingMusic = playlist[(playIndex + 1) % playlist.length];
-                p.loadVideoById(nextPlayingMusic.videoId);
-                p.setVolume(nextPlayingMusic.volume);
-                // this.props.playing = nextPlayingMusic.id;
+
+                this.props.onNextMusic(nextPlayingMusic.id);
               });
+      } else if (event.data === PlayerState.NOTSTART) {
+        if (!this.prepared && this.props.playlist.length > 0) {
+          this.player.cueVideoById(this.props.playlist[0].videoId);
+          this.player.setVolume(this.props.playlist[0].volume);
+          this.prepared = true;
+        }
       }
     });
 
-    player.cueVideoById(playlist[0].videoId);
-    player.setVolume(playlist[0].volume);
+    if (!this.prepared && this.props.playlist.length > 0) {
+      this.player.cueVideoById(this.props.playlist[0].videoId);
+      this.player.setVolume(this.props.playlist[0].volume);
+      this.prepared = true;
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.playing !== this.props.playing) {
+      const nextPlayIndex = this.props.playlist.findIndex((x) => x.id === nextProps.playing);
+      this.player.loadVideoById(this.props.playlist[nextPlayIndex].videoId);
+      this.player.setVolume(this.props.playlist[nextPlayIndex].volume);
+    }
   }
 
   shouldComponentUpdate() {
@@ -57,6 +80,7 @@ class DetailPlayer extends React.Component {
 DetailPlayer.propTypes = {
   playlist: React.PropTypes.array,
   playing: React.PropTypes.number,
+  onNextMusic: React.PropTypes.func,
 };
 
 export default DetailPlayer;

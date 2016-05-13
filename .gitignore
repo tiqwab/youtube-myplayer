@@ -11,3 +11,4 @@ npm-debug.log
 *.sketch
 
 dist/bundle.js
+src/Configuration.js

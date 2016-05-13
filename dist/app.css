@@ -47,6 +47,25 @@ h1 {
   line-height: 20px;
   border-bottom: 1px solid #979797;
   margin-bottom: 15px;
+  position: relative;
+}
+
+.scroll-item .btn-play {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.scroll-item .btn-play:hover {
+  opacity: 0.7;
+}
+
+.scroll-item .btn-play:active {
+  opacity: 1.0;
+}
+
+.scroll-item .btn-play:active {
+  background: url('btn-play.png') no-repeat;
 }
 
 .scroll-item-selected label:after {

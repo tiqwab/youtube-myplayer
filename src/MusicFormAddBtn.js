@@ -6,9 +6,14 @@ class MusicFormAddBtn extends React.Component {
       <button
         id="btn-add"
         className="btn"
+        onClick={this.props.onAddNewItem}
       >Add</button>
     );
   }
 }
+
+MusicFormAddBtn.propTypes = {
+  onAddNewItem: React.PropTypes.func,
+};
 
 export default MusicFormAddBtn;
