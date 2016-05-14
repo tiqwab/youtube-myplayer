@@ -30,10 +30,14 @@ class Detail extends React.Component {
     });
   }
 
-  onNextMusic(nextPlaying) {
-    this.setState({
-      playing: nextPlaying,
-    });
+  onNextMusic(nextPlaying, playlist, updateState) {
+    if (updateState) {
+      this.setState({
+        playing: nextPlaying,
+        playlist,
+      });
+    }
+    PlaylistRepository.save(playlist);
   }
 
   onClickItem(item) {
